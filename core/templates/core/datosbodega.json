@@ -1,0 +1,38 @@
+[
+    {
+        "ID"       : "27",
+        "Categoria":"Perros",
+        "Nombre"   :"Saco alimento Royal Canin",
+        "Descripcion"   :"Saco Royal Canin de 3 kilos",
+        "Precio":"8000",
+        "descsub":"5",
+        "descof":"2"
+    },
+    {
+        "ID"       :"28",
+        "Categoria":"Gato",
+        "Nombre"   :"Saco alimento Don Cuchito",
+        "Descripcion"   :"Saco Don Cuchito de 1 kilo",
+        "Precio":"2000",
+        "descsub":"5",
+        "descof":"2"
+    },
+    {
+        "ID"        : "29",
+        "Categoria" :"Perros",
+        "Nombre"    :"Saco alimento Royal Canin",
+        "Descripcion"    :"Saco Royal Canin de 3 kilos",
+        "Precio":"8000",
+        "descsub":"5",
+        "descof":"2"
+    },
+    {
+        "ID"         :"30",
+        "Categoria"  :"Gato",
+        "Nombre"     :"Saco alimento Don Cuchito",
+        "Descripcion":"Saco Don Cuchito de 1 kilo",
+        "Precio":"2000",
+        "descsub":"5",
+        "descof":"2"
+    }
+]

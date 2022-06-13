@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link href="{% static 'core/css/forms.css'%}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <h1>Ficha Residentes</h1>
+    {% if list %}
+        <div class="row text-center">
+        {% for pa in list %}
+            <a href="{% url 'ficha_paciente' pa.rut %}">
+                <div class="tienda_auto_recuadro">
+                    <div class="tienda_auto_recuadro_interior">
+                        <img src="/media/{{ pa.foto }}" class="tienda_auto_imagen" alt="">
+                    </div>
+                    <div style="text-align:center;">
+                        <br>
+                        <br>
+                        <br>
+                        <h6>Habitación:{{ pa.habitacion }} </h6>
+                        {{ pa.nombres }}
+                        <br>
+                        {{ pa.apellidos }}
+                        <br>
+                        <h6>Cuidados:{{ pa.cuidados }}</h6>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+        </div>
+    {% endif %}
+    <div class="tienda_link_home">
+        <a href="{% url 'home' %}" class="btn btn-info btn-sm">Ir a la página de inicio</a>
+    </div>
+{% endblock content %}

@@ -1,0 +1,29 @@
+h1 {
+    text-align: center !important;
+}
+
+label {
+    width: 190px;
+}
+
+input {
+    width: 300px;
+}
+
+form {
+    text-align: left;
+    margin:auto;
+    border: 1px solid rgb(55, 108, 40);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.helptext {
+    float: left;
+    /* display: none !important; */
+}
+
+.btn_guardar {
+    margin-top: 40px;
+    text-align: center !important;
+}

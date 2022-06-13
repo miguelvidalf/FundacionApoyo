@@ -1,0 +1,70 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<link href="{% static 'core/css/forms.css'%}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h1>Administrar Productos</h1>
+{% if form %}
+<form method="POST" action="" enctype="multipart/form-data" id="formulario">
+    <div class="form-group">
+        {% csrf_token %} {{ form.as_ul }}
+        {% if action == 'upd'  %}
+            <script>
+                $(document).ready(function() {
+                    $('#id_patente').attr('readonly', true);
+                });
+            </script>
+        {% endif %}
+
+    </div>
+    <input type="submit" class="btn btn-primary btnwidth" id="id_guardar" value="Guardar">
+    <a class="btn btn-success btnwidth" href="{% url 'administrar_productos' 'ins' -1 %}">Nuevo</a>
+    {% if id != '-1' %}
+    <a class="btn btn-danger btnwidth" href="{% url 'administrar_productos' 'del' id %}">Eliminar</a>
+    {% endif %}
+    <a class="btn btn-info btnwidth" href="{% url 'home' %}">Inicio</a>
+    {% if mesg %}
+    <div id="form_message" class="alert alert-danger" role="alert">{{ mesg }}</div>
+    {% endif %}
+</form>
+{% endif %}
+{% if list %}
+<table id="tabla_datos">
+    <thead>
+        <tr>
+            <th>Patente</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Imagen</th>
+            <th>Precio</th>
+            <th>Categoría</th>
+            <th class="titulo_boton">Editar</th>
+            <th class="titulo_boton">Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ve in list %}
+        <tr>
+            <td>{{ ve.patente }}</td>
+            <td>{{ ve.marca }}</td>
+            <td>{{ ve.modelo }}</td>
+            <td><img src="/media/{{ ve.imagen }}" class="mini_auto" alt=""></td>
+            <td>{{ ve.precio }}</td>
+            <td>{{ ve.categoria }}</td>
+            <td><a href="{% url 'administrar_productos' 'upd' ve.patente %}" 
+                class="btn btn-primary btn-sm boton_chico">Editar</a></td>
+            <td><a href="{% url 'administrar_productos' 'del' ve.patente %}" 
+                class="btn btn-danger btn-sm boton_chico">Eliminar</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+<br>
+<a href="{% url 'poblar_bd' %}" class="btn btn-info btn-sm">Poblar BD</a>
+<a href="http://127.0.0.1:8000/admin" class="btn btn-info btn-sm">Administración</a>
+<a href="{% url 'home' %}" class="btn btn-info btn-sm">Home page</a>
+{% endblock content %}

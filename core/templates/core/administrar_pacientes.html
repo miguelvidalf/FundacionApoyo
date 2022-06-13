@@ -1,0 +1,72 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<link href="{% static 'core/css/forms.css'%}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h1>Administrar Residentes</h1>
+{% if form %}
+<form method="POST" action="" enctype="multipart/form-data" id="formulario">
+    <div class="form-group">
+        {% csrf_token %} {{ form.as_ul }}
+        {% if action == 'upd'  %}
+            <script>
+                $(document).ready(function() {
+                    $('#id_paciente').attr('readonly', true);
+                });
+            </script>
+        {% endif %}
+
+    </div>
+    <input type="submit" class="btn btn-primary btnwidth" id="id_guardar" value="Guardar">
+    <a class="btn btn-success btnwidth" href="{% url 'administrar_pacientes' 'ins' -1 %}">Nuevo</a>
+    {% if id != '-1' %}
+    <a class="btn btn-danger btnwidth" href="{% url 'administrar_pacientes' 'del' id %}">Eliminar</a>
+    {% endif %}
+    <a class="btn btn-info btnwidth" href="{% url 'home' %}">Inicio</a>
+    {% if mesg %}
+    <div id="form_message" class="alert alert-danger" role="alert">{{ mesg }}</div>
+    {% endif %}
+</form>
+{% endif %}
+{% if list %}
+<table id="tabla_datos">
+    <thead>
+        <tr>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Rut</th>
+            <th>Edad</th>
+            <th>Fecha de Ingreso</th>
+            <th>Fecha de Salida</th>
+            <th>Habitación</th>
+            <th class="titulo_boton">Editar</th>
+            <th class="titulo_boton">Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pa in list %}
+        <tr>
+            <td>{{ pa.nombres }}</td>
+            <td>{{ pa.apellidos }}</td>
+            <td>{{ pa.rut }}</td>
+            <td>{{ pa.edad }}</td>
+            <td>{{ pa.fingreso }}</td>
+            <td>{{ pa.fsalida }}</td>
+            <td>{{ pa.habitacion }}</td>
+            <td><a href="{% url 'administrar_pacientes' 'upd' pa.rut %}" 
+                class="btn btn-primary btn-sm boton_chico">Editar</a></td>
+            <td><a href="{% url 'administrar_pacientes' 'del' pa.rut %}" 
+                class="btn btn-danger btn-sm boton_chico">Eliminar</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+<br>
+<a href="{% url 'poblar_bd' %}" class="btn btn-info btn-sm">Poblar BD</a>
+<a href="http://127.0.0.1:8000/admin" class="btn btn-info btn-sm">Administración</a>
+<a href="{% url 'home' %}" class="btn btn-info btn-sm">Home page</a>
+{% endblock content %}

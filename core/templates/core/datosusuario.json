@@ -1,0 +1,29 @@
+[
+    {
+        "ID"       : "27",
+        "tipou":"Registrado",
+        "rut"   :"9.455.847-k",
+        "nombre"   :"Juan",
+        "apllido":"Perez",
+        "direccion":"San Juan Bautista 423",
+        "consubcrpcion":"si"
+    },
+    {
+        "ID"       :"28",
+        "tipou":"Gato",
+        "rut"   :"Saco alimento Don Cuchito",
+        "nombre"   :"Saco Don Cuchito de 1 kilo",
+        "apllido":"2000",
+        "direccion":"San Juan Bautista 423",
+        "consubcrpcion":"no"
+    },
+    {
+        "ID"        : "29",
+        "tipou" :"Registrado",
+        "rut"    :"Saco alimento Royal Canin",
+        "nombre"    :"Saco Royal Canin de 3 kilos",
+        "apllido":"8000",
+        "direccion":"San Juan Bautista 423",
+        "consubcrpcion":"no"
+    }
+]
