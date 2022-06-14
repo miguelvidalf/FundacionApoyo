@@ -3,7 +3,7 @@ from django import forms
 from django.forms import ModelForm, fields, Form
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Vehiculo, PerfilUsuario, Paciente, Insumo
+from .models import Vehiculo, PerfilUsuario, Paciente, Insumo, Post
 
 class VehiculoForm(ModelForm):
     class Meta:
@@ -50,3 +50,8 @@ class InsumoForm(ModelForm):
         def __init__(self, *args, **kwargs):
             super(InsumoForm,self).__init__(*args, **kwargs)
             self.fields['fcompra'].widget = forms.DateInput(attrs={ 'type': 'date'})
+            
+class PostForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ['residente','titulo','encargado','fecha','hora','anotacion']

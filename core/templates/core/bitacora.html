@@ -1,0 +1,62 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<link href="{% static 'core/css/forms.css'%}" rel="stylesheet">
+<script src="{% static 'core/js/search_table.js'%}"></script>
+{% endblock %}
+
+{% block content %}
+<h1>Bitacora</h1>
+{% if form %}
+<form method="POST" action="" enctype="multipart/form-data" id="formulario">
+    <div class="form-group">
+        {% csrf_token %} {{ form.as_ul }}
+        {% if action == 'upd'  %}
+            <script>
+                $(document).ready(function() {
+                    $('#id_residente').attr('readonly', true);
+                });
+            </script>
+        {% endif %}
+
+    </div>
+    <input type="submit" class="btn btn-primary btnwidth" id="id_guardar" value="Guardar">
+    
+    {% if id != '-1' %}
+    <a class="btn btn-danger btnwidth" href="{% url 'bitacora' 'del' id %}">Eliminar</a>
+    {% endif %}
+    {% if mesg %}
+    <div id="form_message" class="alert alert-danger" role="alert">{{ mesg }}</div>
+    {% endif %}
+</form>
+{% endif %}
+{% if list %}
+<input type="text" id="myInput" onkeyup="search()" placeholder="Buscar Residente..">
+<table id="tabla_datos2">
+    <thead>
+        <tr>
+            <th>Residente</th>
+            <th>Titulo</th>
+            <th>Encargado</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Anotaciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for post in list %}
+        <tr>
+            <td>{{ post.residente }}</td>
+            <td>{{ post.titulo }}</td>
+            <td>{{ post.encargado }}</td>
+            <td>{{ post.fecha }}</td>
+            <td>{{ post.hora }}</td>
+            <td>{{ post.anotacion }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endif %}
+{% endblock content %}

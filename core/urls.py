@@ -1,12 +1,12 @@
 from django.urls import path
 from django.views.generic.base import TemplateView
 from django.contrib.auth import views as auth_views
-from .views import administrar_pacientes, home, administrar_productos, tienda, ficha, administrar_insumos
+from .views import administrar_pacientes, bitacora, home, administrar_productos, tienda, ficha, administrar_insumos
 from .views import iniciar_sesion, registrar_usuario, cerrar_sesion
 from .views import perfil_usuario, iniciar_pago, pago_exitoso
 from .views import  index
 from .views_poblar_bd import poblar_bd
-from .views import administrar_pacientes,paciente,ficha_paciente, administrar_insumos
+from .views import administrar_pacientes,paciente,ficha_paciente, administrar_insumos, bitacora
 
 urlpatterns = [
     path('', home, name="home"),
@@ -27,4 +27,5 @@ urlpatterns = [
     path('pacientes/', paciente, name="pacientes"),
     path('ficha_paciente/<id>',ficha_paciente, name="ficha_paciente"),
     path('administrar_insumos/<action>/<id>', administrar_insumos, name="administrar_insumos"),
+    path('bitacora/<action>/<id>',bitacora, name='bitacora'),
 ]

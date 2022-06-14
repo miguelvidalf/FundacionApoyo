@@ -1,3 +1,4 @@
+from operator import mod
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -64,6 +65,16 @@ class Insumo(models.Model):
     proveedor = models.CharField(max_length=80, blank=True, null=False, verbose_name="Proveedor")
     def __str__(self):
         return f"{self.codigo} - {self.nombrein}, {self.cantidad}, {self.estado}"
+    
+class Post(models.Model):
+    residente = models.ForeignKey(Paciente, on_delete= models.CASCADE)
+    titulo = models.CharField(max_length=60, null=False, blank=False, verbose_name="Titulo")
+    encargado = models.CharField(max_length=60, null=False, blank=False, verbose_name="Encargado")
+    fecha = models.DateField(blank=False, null=False,verbose_name="Fecha")
+    hora = models.CharField(max_length=8, null=False, blank=False, verbose_name="Hora")
+    anotacion = models.TextField(verbose_name="Anotacion")
+    def __str__(self):
+        return f"{self.residente} - {self.titulo}, {self.encargado},{self.fecha}"
     
     
     

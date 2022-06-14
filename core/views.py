@@ -5,9 +5,9 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
-from .models import Paciente, Vehiculo, PerfilUsuario, Insumo
+from .models import Paciente, Vehiculo, PerfilUsuario, Insumo, Post
 from .forms import PacienteForm, VehiculoForm, IniciarSesionForm, InsumoForm
-from .forms import RegistrarUsuarioForm, PerfilUsuarioForm, PacienteForm
+from .forms import RegistrarUsuarioForm, PerfilUsuarioForm, PacienteForm, PostForm
 #from .error.transbank_error import TransbankError
 #from transbank.webpay.webpay_plus.transaction import Transaction, WebpayOptions
 import random
@@ -316,3 +316,38 @@ def administrar_insumos(request, action, id):
     data["list"] = Insumo.objects.all().order_by('codigo')
     return render(request, "core/administrar_insumos.html", data)
 
+def bitacora(request,action,id):
+    if not (request.user.is_authenticated and request.user.is_staff):
+        return redirect(home)
+
+    data = {"mesg": "", "form": PostForm, "action": action, "id": id, "formsesion": IniciarSesionForm}
+
+    if action == 'ins':
+        if request.method == "POST":
+            form = PostForm(request.POST, request.FILES)
+            if form.is_valid:
+                try:
+                    form.save()
+                    data["mesg"] = "¡La anotación se agregó correctamente!"
+                except:
+                    data["mesg"] = "¡No se pueden generar dos anotaciones con el mismo codigo!"
+
+    elif action == 'upd':
+        objeto = Post.objects.get(residente=id)
+        if request.method == "POST":
+            form = PostForm(data=request.POST, files=request.FILES, instance=objeto)
+            if form.is_valid:
+                form.save()
+                data["mesg"] = "¡La anotación fue actualiado correctamente!"
+        data["form"] = PostForm(instance=objeto)
+
+    elif action == 'del':
+        try:
+            Post.objects.get(residente=id).delete()
+            data["mesg"] = "¡La anotación fue eliminado correctamente!"
+            return redirect(administrar_insumos, action='ins', id = '-1')
+        except:
+            data["mesg"] = "¡La anotación ya estaba eliminada!"
+
+    data["list"] = Post.objects.all().order_by('residente')
+    return render(request, "core/bitacora.html", data)
